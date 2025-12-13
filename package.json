@@ -7,10 +7,10 @@
     "build": "next build",
     "start": "bun run build && next start",
     "lint": "eslint",
-    "biome:check": "bunx biome check --write --unsafe app",
-    "prisma:format": "bunx prisma format",
+    "biome:check": "biome check --write --unsafe app",
+    "prisma:format": "prisma format",
     "format": "bun run biome:check && bun run prisma:format",
-    "seed": "tsx prisma/seed.ts"
+    "seed": "prisma db seed"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
