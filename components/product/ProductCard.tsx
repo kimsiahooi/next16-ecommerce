@@ -15,7 +15,7 @@ export default function ProductCard({ product }: { product: Product }) {
         />
       </div>
       <h2 className="text-lg font-semibold"> {product.name}</h2>
-      <p className="text-gray-600">{product.price.toFixed(2)}</p>
+      <p className="text-gray-600">${product.price.toFixed(2)}</p>
       <p className="text-gray-500">{product.description}</p>
     </div>
   );
