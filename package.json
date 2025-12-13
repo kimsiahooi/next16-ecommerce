@@ -9,7 +9,9 @@
     "lint": "eslint",
     "biome:check": "biome check --write --unsafe app",
     "prisma:format": "prisma format",
+    "prisma:generate": "prisma generate",
     "format": "bun run biome:check && bun run prisma:format",
+    "generate": "bun run prisma:generate",
     "seed": "prisma db seed"
   },
   "dependencies": {
