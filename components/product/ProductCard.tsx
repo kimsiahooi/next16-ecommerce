@@ -10,6 +10,8 @@ export default function ProductCard({ product }: { product: Product }) {
           alt={product.name}
           className="object-cover"
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          loading="eager"
         />
       </div>
       <h2 className="text-lg font-semibold"> {product.name}</h2>
