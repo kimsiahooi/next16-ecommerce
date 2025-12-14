@@ -5,6 +5,29 @@ import { Separator } from "@/components/ui/separator";
 import { getProductBySlug } from "@/lib/actions";
 import { formatPrice } from "@/lib/utils";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const product = await getProductBySlug(slug);
+
+  if (!product) return {};
+
+  return {
+    title: product.name,
+    description: product.description,
+    openGraph: {
+      title: product.name,
+      description: product.description,
+      images: {
+        url: product.image,
+      },
+    },
+  };
+}
+
 export default async function ProductDetail({
   params,
 }: {
