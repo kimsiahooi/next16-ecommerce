@@ -27,8 +27,6 @@ async function Products({
     take: pageSize,
   });
 
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-
   return (
     <>
       <p>Showing {products.length} products</p>
