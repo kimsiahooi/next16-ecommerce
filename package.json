@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "bun run build && next start",
+    "start": "next start",
     "lint": "eslint",
     "biome:check": "biome check --write --unsafe app",
     "prisma:format": "prisma format",
