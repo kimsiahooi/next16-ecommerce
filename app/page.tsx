@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Breadcrumbs from "@/components/breadcrumbs";
+import Breadcrumbs from "@/components/breadcrumb/breadcrumbs";
 import ProductCard from "@/components/product/ProductCard";
 import ProductsSkeleton from "@/components/product/ProductsSkeleton";
 import {

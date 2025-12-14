@@ -1,7 +1,7 @@
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import Breadcrumbs from "@/components/breadcrumbs";
+import Breadcrumbs from "@/components/breadcrumb/breadcrumbs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -57,7 +57,7 @@ export default async function ProductDetail({
   return (
     <main className="container mx-auto py-4">
       <Breadcrumbs items={breadcrumbs} />
-      <Card className="max-w-3xl mx-auto">
+      <Card>
         <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <div className="relative rounded-lg overflow-hidden h-50 md:h-100">
