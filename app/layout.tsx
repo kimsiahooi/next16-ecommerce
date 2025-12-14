@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import { ModeToggle } from "@/components/mode-toggle";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
@@ -39,6 +40,9 @@ export default function RootLayout({
             </li>
             <li>
               <Link href="/products">Products</Link>
+            </li>
+            <li>
+              <ModeToggle />
             </li>
           </ul>
           {children}
