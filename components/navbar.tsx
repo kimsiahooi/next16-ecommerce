@@ -1,5 +1,6 @@
 import { Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
+import MobileNav from "./mobile-nav";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 
@@ -15,7 +16,7 @@ export default function Navbar() {
       <div className="container mx-auto flex h-16 items-center justify-between">
         <div>
           <div className="flex items-center gap-6">
-            <Link className="text-2xl font-bold" href="/">
+            <Link className="text-2xl font-bold max-md:hidden" href="/">
               Store
             </Link>
             <nav className="hidden md:flex items-center gap-6">
@@ -28,6 +29,8 @@ export default function Navbar() {
                 </Link>
               ))}
             </nav>
+            {/* Mobile Nav */}
+            <MobileNav />
           </div>
         </div>
         <div className="flex items-center gap-4">
