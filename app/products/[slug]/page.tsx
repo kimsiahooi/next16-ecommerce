@@ -1,6 +1,7 @@
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import Breadcrumbs from "@/components/breadcrumbs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -44,8 +45,18 @@ export default async function ProductDetail({
     notFound();
   }
 
+  const breadcrumbs = [
+    { label: "Products", href: "/" },
+    {
+      label: product.category.name,
+      href: `/categories/${product.category.slug}`,
+    },
+    { label: product.name, href: `/products/${product.slug}`, active: true },
+  ];
+
   return (
-    <main className="container mx-auto p-4">
+    <main className="container mx-auto py-4">
+      <Breadcrumbs items={breadcrumbs} />
       <Card className="max-w-3xl mx-auto">
         <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
