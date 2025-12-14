@@ -24,6 +24,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const year = new Date().getFullYear();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -37,6 +39,11 @@ export default function RootLayout({
             <Navbar />
           </header>
           {children}
+          <footer className="border-t border-dashed py-6">
+            <div className="container mx-auto text-sm text-muted-foreground text-center">
+              &copy; {year} Your Company. All rights reserved.
+            </div>
+          </footer>
         </ThemeProvider>
       </body>
     </html>
