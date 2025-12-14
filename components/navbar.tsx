@@ -4,13 +4,13 @@ import MobileNav from "./mobile-nav";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 
-export default function Navbar() {
-  const categories = [
-    { id: 1, name: "Electronics", href: "/categories/electronics" },
-    { id: 2, name: "Fashion", href: "/categories/fashion" },
-    { id: 3, name: "Home", href: "/categories/home" },
-  ];
+export const categories = [
+  { id: 1, name: "Electronics", href: "/categories/electronics" },
+  { id: 2, name: "Fashion", href: "/categories/fashion" },
+  { id: 3, name: "Home", href: "/categories/home" },
+];
 
+export default function Navbar() {
   return (
     <div className="border-b">
       <div className="container mx-auto flex h-16 items-center justify-between">

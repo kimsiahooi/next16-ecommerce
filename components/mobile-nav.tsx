@@ -1,6 +1,16 @@
 import { Menu } from "lucide-react";
-import { Sheet, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "./ui/button";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { categories } from "./navbar";
 
 export default function MobileNav() {
   return (
@@ -10,6 +20,36 @@ export default function MobileNav() {
           <Menu className="size-5" />
         </Button>
       </SheetTrigger>
+      <SheetContent side="left">
+        <SheetHeader>
+          <SheetTitle>Menu</SheetTitle>
+          <SheetDescription></SheetDescription>
+        </SheetHeader>
+
+        <nav className="flex flex-col gap-4 p-4">
+          <SheetClose asChild>
+            <Link href="/">Home</Link>
+          </SheetClose>
+          <SheetClose asChild>
+            <Link href="/products">Products</Link>
+          </SheetClose>
+
+          <div>
+            <h3 className="text-xs font-medium mb-2 text-muted-foreground">
+              Electronics
+            </h3>
+            {categories.map((category) => (
+              <SheetClose asChild key={category.id}>
+                <Link
+                  href={category.href}
+                  className="block py-2 text-sm font-medium">
+                  {category.name}
+                </Link>
+              </SheetClose>
+            ))}
+          </div>
+        </nav>
+      </SheetContent>
     </Sheet>
   );
 }
