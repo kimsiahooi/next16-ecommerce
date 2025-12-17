@@ -2,6 +2,7 @@ import { Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import MobileNav from "./mobile-nav";
 import { ModeToggle } from "./mode-toggle";
+import SearchInput from "./search-input";
 import { Button } from "./ui/button";
 
 export const categories = [
@@ -33,13 +34,12 @@ export default function Navbar() {
             <MobileNav />
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" asChild>
-            <Link href="/search">
-              <Search className="size-5" />
-            </Link>
-          </Button>
 
+        <div className="w-full mx-4 md:mx-8 max-md:hidden">
+          <SearchInput />
+        </div>
+
+        <div className="flex items-center gap-4">
           <Button variant="ghost" size="icon" asChild>
             <Link href="/cart">
               <ShoppingCart className="size-5" />
