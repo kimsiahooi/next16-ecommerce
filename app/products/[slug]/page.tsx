@@ -10,117 +10,117 @@ import { getProductBySlug } from "@/lib/actions";
 import { formatPrice } from "@/lib/utils";
 
 export async function generateMetadata({
-  params,
+	params,
 }: {
-  params: Promise<{ slug: string }>;
+	params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
-  const product = await getProductBySlug(slug);
+	const { slug } = await params;
+	const product = await getProductBySlug(slug);
 
-  if (!product) return {};
+	if (!product) return {};
 
-  return {
-    title: product.name,
-    description: product.description,
-    openGraph: {
-      title: product.name,
-      description: product.description,
-      images: {
-        url: product.image,
-      },
-    },
-  };
+	return {
+		title: product.name,
+		description: product.description,
+		openGraph: {
+			title: product.name,
+			description: product.description,
+			images: {
+				url: product.image,
+			},
+		},
+	};
 }
 
 export default async function ProductDetail({
-  params,
+	params,
 }: {
-  params: Promise<{ slug: string }>;
+	params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
+	const { slug } = await params;
 
-  const product = await getProductBySlug(slug);
+	const product = await getProductBySlug(slug);
 
-  if (!product) {
-    notFound();
-  }
+	if (!product) {
+		notFound();
+	}
 
-  const breadcrumbs = [
-    { label: "Products", href: "/" },
-    {
-      label: product.category.name,
-      href: `/categories/${product.category.slug}`,
-    },
-    { label: product.name, href: `/products/${product.slug}`, active: true },
-  ];
+	const breadcrumbs = [
+		{ label: "Products", href: "/" },
+		{
+			label: product.category.name,
+			href: `/categories/${product.category.slug}`,
+		},
+		{ label: product.name, href: `/products/${product.slug}`, active: true },
+	];
 
-  return (
-    <main className="container mx-auto py-4">
-      <Breadcrumbs items={breadcrumbs} />
-      <Card>
-        <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <div className="relative rounded-lg overflow-hidden h-50 md:h-100">
-              {product.image && (
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  loading="eager"
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              )}
-            </div>
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
+	return (
+		<main className="container mx-auto py-4">
+			<Breadcrumbs items={breadcrumbs} />
+			<Card>
+				<CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+					<div>
+						<div className="relative rounded-lg overflow-hidden h-50 md:h-100">
+							{product.image && (
+								<Image
+									src={product.image}
+									alt={product.name}
+									fill
+									loading="eager"
+									className="object-cover"
+									sizes="(max-width: 768px) 100vw, 50vw"
+								/>
+							)}
+						</div>
+					</div>
+					<div>
+						<h1 className="text-3xl font-bold mb-2">{product.name}</h1>
 
-            <div className="flex items-center gap-2 mbp-4">
-              <span className="font-semibold text-lg">
-                {formatPrice(product.price)}
-              </span>
+						<div className="flex items-center gap-2 mbp-4">
+							<span className="font-semibold text-lg">
+								{formatPrice(product.price)}
+							</span>
 
-              <Badge variant="outline">{product.category.name}</Badge>
-            </div>
+							<Badge variant="outline">{product.category.name}</Badge>
+						</div>
 
-            <Separator className="my-4" />
-            <div className="space-y-2">
-              <h2 className="font-medium">Description</h2>
-              <p>{product.description}</p>
-            </div>
+						<Separator className="my-4" />
+						<div className="space-y-2">
+							<h2 className="font-medium">Description</h2>
+							<p>{product.description}</p>
+						</div>
 
-            <Separator className="my-4" />
-            <div className="space-y-2">
-              <h2 className="font-medium">Availability</h2>
-              <div className="flex items-center gap-2">
-                {product.inventory ? (
-                  <>
-                    <Badge variant="outline" className="text-green-600">
-                      In stock
-                    </Badge>
-                    <span className="text-xs text-gray-500">
-                      ({product.inventory} items available)
-                    </span>
-                  </>
-                ) : (
-                  <Badge variant="outline" className="text-red-600">
-                    Out of stock
-                  </Badge>
-                )}
-              </div>
-            </div>
+						<Separator className="my-4" />
+						<div className="space-y-2">
+							<h2 className="font-medium">Availability</h2>
+							<div className="flex items-center gap-2">
+								{product.inventory ? (
+									<>
+										<Badge variant="outline" className="text-green-600">
+											In stock
+										</Badge>
+										<span className="text-xs text-gray-500">
+											({product.inventory} items available)
+										</span>
+									</>
+								) : (
+									<Badge variant="outline" className="text-red-600">
+										Out of stock
+									</Badge>
+								)}
+							</div>
+						</div>
 
-            <Separator className="my-4" />
-            <div>
-              <Button disabled={!product.inventory} className="w-full">
-                <ShoppingCart className="mr-1 size-4" />{" "}
-                {product.inventory ? "Add to cart" : "Out of stock"}
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </main>
-  );
+						<Separator className="my-4" />
+						<div>
+							<Button disabled={!product.inventory} className="w-full">
+								<ShoppingCart className="mr-1 size-4" />{" "}
+								{product.inventory ? "Add to cart" : "Out of stock"}
+							</Button>
+						</div>
+					</div>
+				</CardContent>
+			</Card>
+		</main>
+	);
 }
