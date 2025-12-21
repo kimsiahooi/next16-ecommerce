@@ -3,3 +3,5 @@ export type SearchParams<
 		[key: string]: string | string[] | undefined;
 	},
 > = Promise<T>;
+
+export type Params<T extends Record<string, string>> = Promise<T>;

@@ -1,12 +1,35 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import type { SortOrder } from "@/app/generated/prisma/internal/prismaNamespace";
 import Breadcrumbs from "@/components/breadcrumb/breadcrumbs";
 import ProductCard from "@/components/product/ProductCard";
 import ProductsSkeleton from "@/components/product/ProductsSkeleton";
 import { prisma } from "@/lib/prisma";
 import { sleep } from "@/lib/utils";
+import type { Params, SearchParams } from "@/types";
 
-async function Products({ slug }: { slug: string }) {
+enum Sort {
+	PRICE_ASC = "price-asc",
+	PRICE_DESC = "price-desc",
+}
+
+async function Products({ slug, sort }: { slug: string; sort?: Sort }) {
+	let orderBy: Record<string, SortOrder> = {};
+
+	switch (sort) {
+		case Sort.PRICE_ASC:
+			orderBy = {
+				price: "asc",
+			};
+			break;
+		case Sort.PRICE_DESC:
+			orderBy = {
+				price: "desc",
+			};
+			break;
+	}
+
 	const products = await prisma.product.findMany({
 		where: {
 			category: {
@@ -14,6 +37,7 @@ async function Products({ slug }: { slug: string }) {
 			},
 		},
 		take: 18,
+		orderBy: { ...orderBy },
 	});
 
 	await sleep(1000);
@@ -37,10 +61,13 @@ async function Products({ slug }: { slug: string }) {
 
 export default async function SearchCategoryPage({
 	params,
+	searchParams,
 }: {
-	params: Promise<{ slug: string }>;
+	params: Params<{ slug: string }>;
+	searchParams: SearchParams<{ sort?: Sort }>;
 }) {
 	const { slug } = await params;
+	const { sort } = await searchParams;
 
 	const category = await prisma.category.findUnique({
 		where: {
@@ -69,8 +96,18 @@ export default async function SearchCategoryPage({
 		<main className="container mx-auto py-4">
 			<Breadcrumbs items={breadcrumbs} />
 
-			<Suspense key={slug} fallback={<ProductsSkeleton />}>
-				<Products slug={slug} />
+			<div className="flex gap-3 text-sm mb-4">
+				<Link href={`/search/${slug}`}>Latest</Link>
+				<Link href={`/search/${slug}?sort=${Sort.PRICE_ASC}`}>
+					Price: Low to High
+				</Link>
+				<Link href={`/search/${slug}?sort=${Sort.PRICE_DESC}`}>
+					Price: High to Low
+				</Link>
+			</div>
+
+			<Suspense key={`${slug}-${sort}`} fallback={<ProductsSkeleton />}>
+				<Products slug={slug} sort={sort} />
 			</Suspense>
 		</main>
 	);

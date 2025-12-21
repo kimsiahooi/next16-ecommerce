@@ -8,11 +8,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { getProductBySlug } from "@/lib/actions";
 import { formatPrice } from "@/lib/utils";
+import type { Params } from "@/types";
 
 export async function generateMetadata({
 	params,
 }: {
-	params: Promise<{ slug: string }>;
+	params: Params<{ slug: string }>;
 }) {
 	const { slug } = await params;
 	const product = await getProductBySlug(slug);
@@ -35,7 +36,7 @@ export async function generateMetadata({
 export default async function ProductDetail({
 	params,
 }: {
-	params: Promise<{ slug: string }>;
+	params: Params<{ slug: string }>;
 }) {
 	const { slug } = await params;
 
