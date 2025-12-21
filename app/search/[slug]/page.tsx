@@ -1,15 +1,17 @@
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Breadcrumbs from "@/components/breadcrumb/breadcrumbs";
 import ProductCard from "@/components/product/ProductCard";
 import ProductsSkeleton from "@/components/product/ProductsSkeleton";
 import { prisma } from "@/lib/prisma";
 import { sleep } from "@/lib/utils";
-import type { SearchParams } from "@/types";
 
-async function Products({ query }: { query: string }) {
+async function Products({ slug }: { slug: string }) {
 	const products = await prisma.product.findMany({
 		where: {
-			OR: [{ name: { contains: query } }, { description: { contains: query } }],
+			category: {
+				slug,
+			},
 		},
 		take: 18,
 	});
@@ -33,21 +35,33 @@ async function Products({ query }: { query: string }) {
 	);
 }
 
-export default async function SearchPage({
-	searchParams,
+export default async function SearchCategoryPage({
+	params,
 }: {
-	searchParams: SearchParams<{
-		query?: string;
-	}>;
+	params: Promise<{ slug: string }>;
 }) {
-	const params = await searchParams;
-	const query = params.query?.trim() ?? "";
+	const { slug } = await params;
+
+	const category = await prisma.category.findUnique({
+		where: {
+			slug,
+		},
+		select: {
+			id: true,
+			name: true,
+			slug: true,
+		},
+	});
+
+	if (!category) {
+		notFound();
+	}
 
 	const breadcrumbs = [
 		{ label: "Products", href: "/" },
 		{
-			label: `Results for ${query}`,
-			href: `/search?query=${encodeURIComponent(query)}`,
+			label: category.name,
+			href: `/search/${category.slug}`,
 		},
 	];
 
@@ -55,8 +69,8 @@ export default async function SearchPage({
 		<main className="container mx-auto py-4">
 			<Breadcrumbs items={breadcrumbs} />
 
-			<Suspense key={query} fallback={<ProductsSkeleton />}>
-				<Products query={query} />
+			<Suspense key={slug} fallback={<ProductsSkeleton />}>
+				<Products slug={slug} />
 			</Suspense>
 		</main>
 	);

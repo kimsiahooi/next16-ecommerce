@@ -7,9 +7,9 @@ import SearchInput from "./search-input";
 import { Button } from "./ui/button";
 
 export const categories = [
-	{ id: 1, name: "Electronics", href: "/categories/electronics" },
-	{ id: 2, name: "Fashion", href: "/categories/fashion" },
-	{ id: 3, name: "Home", href: "/categories/home" },
+	{ id: 1, name: "Electronics", href: "/search/electronics" },
+	{ id: 2, name: "Clothing", href: "/search/clothing" },
+	{ id: 3, name: "Home", href: "/search/home" },
 ];
 
 export default function Navbar() {
