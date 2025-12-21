@@ -11,8 +11,7 @@ import {
 	PaginationPrevious,
 } from "@/components/ui/pagination";
 import { prisma } from "@/lib/prisma";
-
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+import type { SearchParams } from "@/types";
 
 async function Products({
 	page,
