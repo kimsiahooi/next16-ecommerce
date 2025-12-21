@@ -10,9 +10,9 @@
 		"prisma:format": "prisma format",
 		"prisma:generate": "prisma generate",
 		"prisma:seed": "prisma db seed",
-		"pm2:start": "PORT=3001 pm2 start npm --name \"ecommerce\" -- start",
+		"pm2:start": "PORT=3001 pm2 start bun --name \"ecommerce\" -- start",
 		"pm2:stop": "pm2 stop all && pm2 delete all",
-		"pm2:restart": "bun run build && bun run pm2:stop && bun run pm2:start"
+		"prod:start": "bun i && bun run build && bun run pm2:stop && bun run pm2:start"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^5.2.2",
