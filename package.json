@@ -13,7 +13,7 @@
 		"format": "bun run biome:check && bun run prisma:format",
 		"generate": "bun run prisma:generate",
 		"seed": "prisma db seed",
-		"pm2:start": "PORT=3001 pm2 start npm --name \"ecommerce\" start",
+		"pm2:start": "bun run build && PORT=3001 pm2 start npm --name \"ecommerce\" -- start",
 		"pm2:stop": "pm2 stop all && pm2 delete all"
 	},
 	"dependencies": {
