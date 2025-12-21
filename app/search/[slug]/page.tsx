@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import type { SortOrder } from "@/app/generated/prisma/internal/prismaNamespace";
 import Breadcrumbs from "@/components/breadcrumb/breadcrumbs";
+import CategorySidebar from "@/components/category/CategorySidebar";
 import ProductCard from "@/components/product/ProductCard";
 import ProductsSkeleton from "@/components/product/ProductsSkeleton";
 import { prisma } from "@/lib/prisma";
@@ -106,9 +107,17 @@ export default async function SearchCategoryPage({
 				</Link>
 			</div>
 
-			<Suspense key={`${slug}-${sort}`} fallback={<ProductsSkeleton />}>
-				<Products slug={slug} sort={sort} />
-			</Suspense>
+			<div className="flex gap-4">
+				<Suspense fallback={<div className="w-31.25">Loading...</div>}>
+					<CategorySidebar />
+				</Suspense>
+
+				<div className="flex-1">
+					<Suspense key={`${slug}-${sort}`} fallback={<ProductsSkeleton />}>
+						<Products slug={slug} sort={sort} />
+					</Suspense>
+				</div>
+			</div>
 		</main>
 	);
 }
