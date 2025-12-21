@@ -37,7 +37,7 @@ export default function Navbar() {
 					</div>
 				</div>
 
-				<div className="w-full mx-4 md:mx-8 max-md:hidden">
+				<div className="w-full mx-4 md:mx-8">
 					<Suspense>
 						<SearchInput />
 					</Suspense>
