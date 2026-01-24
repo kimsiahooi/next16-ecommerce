@@ -13,7 +13,7 @@
     "prisma:seed": "prisma db seed",
     "pm2:start": "PORT=3001 pm2 start bun --name \"ecommerce\" -- start",
     "pm2:stop": "pm2 stop all && pm2 delete all",
-    "production": "bun i && bun run build && bun run prisma:generate && bun run prisma:deploy && bun run pm2:stop && bun run pm2:start"
+    "production": "bun i && bun run prisma:generate && bun run build && bun run prisma:deploy && bun run pm2:stop && bun run pm2:start"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -58,7 +58,7 @@
     "react-day-picker": "^9.13.0",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.71.1",
-    "react-resizable-panels": "^4.4.2",
+    "react-resizable-panels": "^3.0.6",
     "recharts": "2.15.4",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
