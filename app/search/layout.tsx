@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+import { type ReactNode, Suspense } from "react";
+import CategorySidebar from "@/components/category/CategorySidebar";
 
 export default function SearchLayout({ children }: { children: ReactNode }) {
   return (
@@ -6,9 +7,9 @@ export default function SearchLayout({ children }: { children: ReactNode }) {
       <div className="flex gap-8">
         <div className="w-31.25 flex-none">
           Categories
-          {/* <Suspense fallback={<div className="w-31.25">Loading...</div>}>
+          <Suspense fallback={<div className="w-31.25">Loading...</div>}>
             <CategorySidebar />
-          </Suspense> */}
+          </Suspense>
         </div>
         <div className="flex-1">{children}</div>
         <div className="w-31.25 flex-none">Sorting</div>
