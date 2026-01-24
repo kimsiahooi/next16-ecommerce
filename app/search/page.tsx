@@ -3,13 +3,30 @@ import Breadcrumbs from "@/components/breadcrumb/breadcrumbs";
 import ProductCard from "@/components/product/ProductCard";
 import ProductsSkeleton from "@/components/product/ProductsSkeleton";
 import { prisma } from "@/lib/prisma";
-import type { SearchParams } from "@/types";
+import { type SearchParams, Sort } from "@/types";
+import type { SortOrder } from "../generated/prisma/internal/prismaNamespace";
 
-async function Products({ query }: { query: string }) {
+async function Products({ query, sort }: { query: string; sort?: string }) {
+  let orderBy: Record<string, SortOrder> = {};
+
+  switch (sort) {
+    case Sort.PRICE_ASC:
+      orderBy = {
+        price: "asc",
+      };
+      break;
+    case Sort.PRICE_DESC:
+      orderBy = {
+        price: "desc",
+      };
+      break;
+  }
+
   const products = await prisma.product.findMany({
     where: {
       OR: [{ name: { contains: query } }, { description: { contains: query } }],
     },
+    orderBy: { ...orderBy },
     take: 18,
   });
 
@@ -35,10 +52,12 @@ export default async function SearchPage({
 }: {
   searchParams: SearchParams<{
     query?: string;
+    sort?: string;
   }>;
 }) {
   const params = await searchParams;
   const query = params.query?.trim() ?? "";
+  const sort = params.sort ?? "";
 
   const breadcrumbs = [
     { label: "Products", href: "/" },
@@ -52,8 +71,8 @@ export default async function SearchPage({
     <>
       <Breadcrumbs items={breadcrumbs} />
 
-      <Suspense key={query} fallback={<ProductsSkeleton />}>
-        <Products query={query} />
+      <Suspense key={`${query}-${sort}`} fallback={<ProductsSkeleton />}>
+        <Products query={query} sort={sort} />
       </Suspense>
     </>
   );
