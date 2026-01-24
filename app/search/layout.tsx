@@ -1,4 +1,5 @@
 import { type ReactNode, Suspense } from "react";
+import SortingControls from "@/components/breadcrumb/sorting/sorting-controls";
 import CategorySidebar from "@/components/category/CategorySidebar";
 import { prisma } from "@/lib/prisma";
 
@@ -22,13 +23,14 @@ export default function SearchLayout({ children }: { children: ReactNode }) {
     <main className="container mx-auto py-4">
       <div className="flex gap-8">
         <div className="w-31.25 flex-none">
-          Categories
           <Suspense fallback={<div className="w-31.25">Loading...</div>}>
             <CategorySidebarServerWrapper />
           </Suspense>
         </div>
         <div className="flex-1">{children}</div>
-        <div className="w-31.25 flex-none">Sorting</div>
+        <div className="w-31.25 flex-none">
+          <SortingControls />
+        </div>
       </div>
     </main>
   );

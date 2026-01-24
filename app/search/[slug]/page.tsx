@@ -6,12 +6,7 @@ import Breadcrumbs from "@/components/breadcrumb/breadcrumbs";
 import ProductCard from "@/components/product/ProductCard";
 import ProductsSkeleton from "@/components/product/ProductsSkeleton";
 import { prisma } from "@/lib/prisma";
-import type { Params, SearchParams } from "@/types";
-
-enum Sort {
-  PRICE_ASC = "price-asc",
-  PRICE_DESC = "price-desc",
-}
+import { type Params, type SearchParams, Sort } from "@/types";
 
 async function Products({ slug, sort }: { slug: string; sort?: Sort }) {
   let orderBy: Record<string, SortOrder> = {};
