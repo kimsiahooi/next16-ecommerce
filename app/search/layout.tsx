@@ -1,5 +1,21 @@
 import { type ReactNode, Suspense } from "react";
 import CategorySidebar from "@/components/category/CategorySidebar";
+import { prisma } from "@/lib/prisma";
+
+async function CategorySidebarServerWrapper() {
+  const categories = await prisma.category.findMany({
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+    },
+    orderBy: {
+      name: "asc",
+    },
+  });
+
+  return <CategorySidebar categories={categories} />;
+}
 
 export default function SearchLayout({ children }: { children: ReactNode }) {
   return (
@@ -8,7 +24,7 @@ export default function SearchLayout({ children }: { children: ReactNode }) {
         <div className="w-31.25 flex-none">
           Categories
           <Suspense fallback={<div className="w-31.25">Loading...</div>}>
-            <CategorySidebar />
+            <CategorySidebarServerWrapper />
           </Suspense>
         </div>
         <div className="flex-1">{children}</div>

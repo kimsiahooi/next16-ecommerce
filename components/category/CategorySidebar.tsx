@@ -1,21 +1,15 @@
-import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+"use client";
 
-export default async function CategorySidebar({
-  activeCategory,
-}: {
-  activeCategory?: string;
-}) {
-  const categories = await prisma.category.findMany({
-    select: {
-      id: true,
-      name: true,
-      slug: true,
-    },
-    orderBy: {
-      name: "asc",
-    },
-  });
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import type { Category } from "@/app/generated/prisma/client";
+
+type Props = {
+  categories: Pick<Category, "id" | "name" | "slug">[];
+};
+
+export default function CategorySidebar({ categories }: Props) {
+  const params = useParams<{ slug: string }>();
 
   return (
     <div className="w-31.25 flex-none">
@@ -26,7 +20,7 @@ export default async function CategorySidebar({
           <li key={category.id}>
             <Link
               href={`/search/${category.slug}`}
-              className={`text-sm hover:text-primary ${activeCategory === category.slug ? "underline" : ""}`}>
+              className={`text-sm hover:text-primary ${params.slug === category.slug ? "underline" : ""}`}>
               {category.name}
             </Link>
           </li>
