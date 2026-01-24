@@ -1,11 +1,11 @@
-import BreadcrumbsSkeleton from "@/components/breadcrumb/breadcrumbs-skeleton";
+import BreadcrumbsSkeleton from "@/components/breadcrumb/BreadcrumbsSkeleton";
 import ProductsSkeleton from "@/components/product/ProductsSkeleton";
 
 export default function Loading() {
-	return (
-		<main className="container mx-auto py-4">
-			<BreadcrumbsSkeleton />
-			<ProductsSkeleton />
-		</main>
-	);
+  return (
+    <main className="container mx-auto py-4">
+      <BreadcrumbsSkeleton />
+      <ProductsSkeleton />
+    </main>
+  );
 }

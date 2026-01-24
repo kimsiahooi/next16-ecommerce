@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Breadcrumbs from "@/components/breadcrumb/breadcrumbs";
+import Breadcrumbs from "@/components/breadcrumb/Breadcrumbs";
 import ProductCard from "@/components/product/ProductCard";
 import ProductsSkeleton from "@/components/product/ProductsSkeleton";
 import { prisma } from "@/lib/prisma";
@@ -26,7 +26,7 @@ async function Products({ query, sort }: { query: string; sort?: string }) {
     where: {
       OR: [{ name: { contains: query } }, { description: { contains: query } }],
     },
-    orderBy: { ...orderBy },
+    orderBy,
     take: 18,
   });
 

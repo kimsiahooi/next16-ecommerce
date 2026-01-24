@@ -1,6 +1,6 @@
 import { type ReactNode, Suspense } from "react";
-import SortingControls from "@/components/breadcrumb/sorting/sorting-controls";
 import CategorySidebar from "@/components/category/CategorySidebar";
+import SortingControls from "@/components/sorting/SortingControls";
 import { prisma } from "@/lib/prisma";
 
 async function CategorySidebarServerWrapper() {

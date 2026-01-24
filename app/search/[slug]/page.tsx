@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import type { SortOrder } from "@/app/generated/prisma/internal/prismaNamespace";
-import Breadcrumbs from "@/components/breadcrumb/breadcrumbs";
+import Breadcrumbs from "@/components/breadcrumb/Breadcrumbs";
 import ProductCard from "@/components/product/ProductCard";
 import ProductsSkeleton from "@/components/product/ProductsSkeleton";
 import { prisma } from "@/lib/prisma";
@@ -31,7 +31,7 @@ async function Products({ slug, sort }: { slug: string; sort?: Sort }) {
       },
     },
     take: 18,
-    orderBy: { ...orderBy },
+    orderBy,
   });
 
   if (!products.length) {
